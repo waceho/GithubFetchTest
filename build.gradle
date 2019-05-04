@@ -33,11 +33,17 @@ ext{
     buildToolsVersion = '28.0.3'
     constraintLayoutVersion = '1.1.2'
 
+    // reactive
+    rxJavaVersion = '2.1.0'
+
     // dagger
     dagger2Version = '2.22.1'
 
     // retrofit
     retrofitVersion = '2.3.0'
+
+    // butterknife
+    butterKnifeVersion = '8.8.1'
 
 
 }

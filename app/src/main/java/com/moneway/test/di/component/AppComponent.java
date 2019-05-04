@@ -3,24 +3,27 @@ package com.moneway.test.di.component;
 import android.app.Application;
 
 import com.moneway.test.MonewayTestApp;
-import com.moneway.test.di.builder.ActivityBuilder;
+import com.moneway.test.di.module.ActivityBuilderModule;
+import com.moneway.test.di.module.AppModule;
+import com.moneway.test.di.module.FragmentModule;
 
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
+import dagger.android.support.AndroidSupportInjectionModule;
+
 
 @Singleton
-@Component(modules = {AndroidInjectionModule.class, ActivityBuilder.class})
+@Component(modules={AndroidSupportInjectionModule.class, ActivityBuilderModule.class, FragmentModule.class, AppModule.class})
 public interface AppComponent {
-    // inject App
-    void inject(MonewayTestApp monewayTestApp);
 
     @Component.Builder
-    interface Builder{
+    interface Builder {
         @BindsInstance
         Builder application(Application application);
         AppComponent build();
     }
+
+    void inject(MonewayTestApp app);
 }

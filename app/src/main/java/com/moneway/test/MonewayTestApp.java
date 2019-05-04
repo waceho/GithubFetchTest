@@ -25,10 +25,16 @@ public class MonewayTestApp extends Application implements HasActivityInjector {
         super.onCreate();
 
         // build dagger
+        initDagger();
+
+    }
+
+    private void initDagger() {
         DaggerAppComponent.builder()
                 .application(this)
                 .build()
                 .inject(this);
-
     }
+
+
 }

@@ -1,12 +1,11 @@
 package com.moneway.test.di.module;
 
-import android.app.Application;
-import android.content.Context;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.moneway.test.data.api.ApiService;
+import com.moneway.test.repository.RepoRepository;
 
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -15,16 +14,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.moneway.test.BuildConfig.BASE_URL;
 
-@Module
-class AppModule {
+@Module(includes = ViewModelModule.class)
+public class AppModule {
 
     @Provides
     @Singleton
-    Context provideContext(Application application) {
-        return application;
+    RepoRepository provideRepoRepository(ApiService apiService) {
+        return new RepoRepository(apiService);
     }
 
-    @Singleton
+    @Provides
+    Gson provideGson() { return new GsonBuilder().create(); }
+
     @Provides
     static Retrofit provideRetrofit() {
         return new Retrofit.Builder().baseUrl(BASE_URL)
@@ -33,7 +34,6 @@ class AppModule {
                 .build();
     }
 
-    @Singleton
     @Provides
     static ApiService provideRetrofitService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
