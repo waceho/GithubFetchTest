@@ -18,10 +18,23 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext{
+    // Sdk and tools
+    minSdkVersion = 21
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.3'
+    constraintLayoutVersion = '1.1.2'
+
+    // dagger
+    dagger2Version = '2.22.1'
+
+
 }
