@@ -21,4 +21,28 @@ public class Repositorie {
         this.stars = stars;
         this.forks = forks;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public long getStars() {
+        return stars;
+    }
+
+    public long getForks() {
+        return forks;
+    }
 }
