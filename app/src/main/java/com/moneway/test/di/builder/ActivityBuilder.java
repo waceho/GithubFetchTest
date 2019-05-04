@@ -1,6 +1,6 @@
 package com.moneway.test.di.builder;
 
-import com.moneway.test.MainActivity;
+import com.moneway.test.ui.main.MainActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

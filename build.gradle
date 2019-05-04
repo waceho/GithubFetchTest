@@ -36,5 +36,8 @@ ext{
     // dagger
     dagger2Version = '2.22.1'
 
+    // retrofit
+    retrofitVersion = '2.3.0'
+
 
 }

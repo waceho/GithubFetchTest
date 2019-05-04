@@ -1,8 +1,10 @@
-package com.moneway.test;
+package com.moneway.test.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.moneway.test.R;
 
 public class MainActivity extends AppCompatActivity {
 
