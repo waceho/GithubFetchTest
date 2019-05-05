@@ -1,7 +1,7 @@
 package com.moneway.test.ui.home;
 
 import com.moneway.test.data.model.Repositorie;
-import com.moneway.test.repository.RepoRepository;
+import com.moneway.test.repository.home.HomeRepository;
 
 import java.util.List;
 
@@ -17,21 +17,21 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends ViewModel {
 
-    private final RepoRepository repoRepository;
-    private final MutableLiveData<List<Repositorie>> repos = new MutableLiveData<>();
+    private final HomeRepository repoRepository;
+    private final MutableLiveData<List<Repositorie>> repositories = new MutableLiveData<>();
     private final MutableLiveData<Boolean> repoLoadError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private CompositeDisposable disposable;
 
     @Inject
-    public HomeViewModel(RepoRepository repoRepository) {
+    public HomeViewModel(HomeRepository repoRepository) {
         this.repoRepository = repoRepository;
         disposable = new CompositeDisposable();
         fetchRepos();
     }
 
     LiveData<List<Repositorie>> getRepos() {
-        return repos;
+        return repositories;
     }
 
     LiveData<Boolean> getError() {
@@ -46,17 +46,17 @@ public class HomeViewModel extends ViewModel {
      * fetch all repositories from github api
      **/
     private void fetchRepos() {
-        //
         loading.setValue(true);
         disposable.add(
-                repoRepository.getRepositories()
+                repoRepository
+                        .getRepositories()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableSingleObserver<List<Repositorie>>() {
                             @Override
                             public void onSuccess(List<Repositorie> value) {
                                 repoLoadError.setValue(false);
-                                repos.setValue(value);
+                                repositories.setValue(value);
                                 loading.setValue(false);
                             }
 

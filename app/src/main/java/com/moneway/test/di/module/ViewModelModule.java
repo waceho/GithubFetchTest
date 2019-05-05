@@ -2,6 +2,7 @@ package com.moneway.test.di.module;
 
 import com.moneway.test.FactoryViewModel;
 import com.moneway.test.di.ViewModelKey;
+import com.moneway.test.ui.detail.DetailsViewModel;
 import com.moneway.test.ui.home.HomeViewModel;
 
 import androidx.lifecycle.ViewModel;
@@ -11,13 +12,18 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 
 @Module
-public abstract class ViewModelModule {
+public interface ViewModelModule {
 
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel.class)
-    abstract ViewModel bindHomeViewModel(HomeViewModel homeViewModel);
+    ViewModel bindHomeViewModel(HomeViewModel homeViewModel);
 
     @Binds
-    abstract ViewModelProvider.Factory bindViewModelFactory(FactoryViewModel factory);
+    @IntoMap
+    @ViewModelKey(DetailsViewModel.class)
+    ViewModel bindDetailsViewModel(DetailsViewModel detailsViewModel);
+
+    @Binds
+    ViewModelProvider.Factory bindViewModelFactory(FactoryViewModel factory);
 }

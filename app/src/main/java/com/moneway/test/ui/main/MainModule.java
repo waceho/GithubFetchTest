@@ -1,5 +1,6 @@
 package com.moneway.test.ui.main;
 
+import com.moneway.test.ui.detail.DetailsFragment;
 import com.moneway.test.ui.home.HomeFragment;
 
 import dagger.Module;
@@ -10,5 +11,8 @@ public interface MainModule {
 
     @ContributesAndroidInjector
     HomeFragment provideHomeFragment();
+
+    @ContributesAndroidInjector
+    DetailsFragment provideDetailsFragment();
 
 }

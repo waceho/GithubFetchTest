@@ -1,12 +1,16 @@
 package com.moneway.test.di.module;
 
+import com.moneway.test.ui.detail.DetailsFragment;
 import com.moneway.test.ui.home.HomeFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class FragmentModule {
+public interface FragmentModule {
     @ContributesAndroidInjector
-    abstract HomeFragment contributeHomeFragment();
+    HomeFragment contributeHomeFragment();
+
+    @ContributesAndroidInjector
+    DetailsFragment contributeDetailsFragment();
 }

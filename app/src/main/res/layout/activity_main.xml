@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
+    <!-- main Framelayout -->
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mainScreenContainer"
         android:layout_width="match_parent"

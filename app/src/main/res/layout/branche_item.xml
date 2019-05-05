@@ -7,7 +7,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_repo_name"
+            android:id="@+id/tv_branch_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
@@ -19,20 +19,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_repo_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:maxLines="1"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_repo_name"
-            app:layout_constraintTop_toTopOf="@+id/tv_repo_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

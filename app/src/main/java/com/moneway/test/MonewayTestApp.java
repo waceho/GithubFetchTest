@@ -9,6 +9,8 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MonewayTestApp extends Application implements HasActivityInjector {
 
@@ -23,10 +25,10 @@ public class MonewayTestApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-
         // build dagger
         initDagger();
-
+        // init realm
+        initRealm();
     }
 
     private void initDagger() {
@@ -34,6 +36,17 @@ public class MonewayTestApp extends Application implements HasActivityInjector {
                 .application(this)
                 .build()
                 .inject(this);
+    }
+
+    private void initRealm(){
+        Realm.init(this);
+
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("githum.realm")
+                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(config);
     }
 
 

@@ -15,9 +15,11 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", "\"http://api.github.com\"")
+            buildConfigField("String", "BASE_URL_TEST", "\"http://www.mocky.io\"")
         }
         release {
             buildConfigField("String", "BASE_URL", "\"http://api.github.com\"")
+            buildConfigField("String", "BASE_URL_TEST", "\"http://www.mocky.io\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -56,6 +58,8 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$rootProject.retrofitVersion"
 
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
     // retrofit
     implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
 
@@ -63,5 +67,10 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
     implementation 'com.google.android.material:material:1.0.0'
 
+    // glide
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
 
 }
+
+apply plugin: 'realm-android'

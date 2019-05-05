@@ -1,5 +1,4 @@
-package com.moneway.test.repository;
-
+package com.moneway.test.repository.home;
 
 import com.moneway.test.data.api.ApiService;
 import com.moneway.test.data.model.Repositorie;
@@ -10,20 +9,17 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-public class RepoRepository {
+public class HomeRepositoryImpl implements HomeRepository {
 
     private final ApiService apiService;
 
     @Inject
-    public RepoRepository(ApiService apiService) {
+    public HomeRepositoryImpl(ApiService apiService) {
         this.apiService = apiService;
     }
 
+    @Override
     public Single<List<Repositorie>> getRepositories() {
         return apiService.getRepositories();
-    }
-
-    public Single<Repositorie> getRepo(String owner, String name) {
-        return apiService.getRepo(owner, name);
     }
 }

@@ -1,10 +1,19 @@
 package com.moneway.test.data.model;
 
-public class Owner {
+import io.realm.RealmObject;
 
-    private final String login;
+/** repos owner Object **/
+public class Owner extends RealmObject {
 
-    public Owner(String login) {
-        this.login = login;
+    public String getLogin() {
+        return login;
     }
+
+    private String login;
+
+    public Owner() {
+
+    }
+
+
 }
