@@ -1,6 +1,6 @@
 package com.moneway.test.data.local;
 
-import com.moneway.test.data.model.Repositorie;
+import com.moneway.test.data.model.Repo;
 
 import java.util.List;
 
@@ -27,17 +27,17 @@ public class RepoDaoImpl implements RepoDao {
     }
 
     @Override
-    public List<Repositorie> getAllRepos() {
-        return mRealm.where(Repositorie.class).findAll();
+    public List<Repo> getAllRepos() {
+        return mRealm.where(Repo.class).findAll();
     }
 
     @Override
-    public Repositorie getRepositorieByIsId(int id) {
-        return mRealm.where(Repositorie.class).equalTo("id", id).findFirst();
+    public Repo getRepositorieByIsId(int id) {
+        return mRealm.where(Repo.class).equalTo("id", id).findFirst();
     }
 
     @Override
-    public void saveRepos(List<Repositorie> repositorieList) {
+    public void saveRepos(List<Repo> repositorieList) {
         mRealm.executeTransaction(realm -> {
             realm.copyToRealmOrUpdate(repositorieList);
         });

@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="repoModel"
+            type="com.moneway.test.data.model.Repo" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!-- repositories name txt -->
         <TextView
             android:id="@+id/tv_repo_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:textSize="17sp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:text="@{repoModel.name}"
+            android:textSize="@dimen/repo_name_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_repo_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:maxLines="1"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_repo_name"
-            app:layout_constraintTop_toTopOf="@+id/tv_repo_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
