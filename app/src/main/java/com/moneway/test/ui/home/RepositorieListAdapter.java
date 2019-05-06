@@ -1,7 +1,5 @@
 package com.moneway.test.ui.home;
 
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * repositories adapter
+ */
 public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieListAdapter.RepoViewHolder> implements Filterable {
 
     private final List<Repositorie> data = new ArrayList<>();
@@ -74,12 +75,10 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
                 } else {
                     List<Repositorie> filteredList = new ArrayList<>();
                     for (Repositorie row : repositorieList) {
-                        Log.d("Repo", row.getName());
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
                         if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().contains(charSequence)) {
                             filteredList.add(row);
-                            Log.d("Repo filtered", charString);
                         }
                     }
 
@@ -95,11 +94,19 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 repositorieFiltered = (ArrayList<Repositorie>) filterResults.values;
-                data.clear();
-                data.addAll(repositorieFiltered);
-                notifyDataSetChanged();
+                if (null != repositorieFiltered)
+                    publishFilteredList();
             }
         };
+    }
+
+    /**
+     * publish the filtered list
+     */
+    private void publishFilteredList() {
+        data.clear();
+        data.addAll(repositorieFiltered);
+        notifyDataSetChanged();
     }
 
     static final class RepoViewHolder extends RecyclerView.ViewHolder {

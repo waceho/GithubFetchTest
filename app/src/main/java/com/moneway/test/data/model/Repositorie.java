@@ -1,25 +1,21 @@
 package com.moneway.test.data.model;
 
-import com.google.gson.annotations.SerializedName;
+import io.realm.RealmObject;
 
-public class Repositorie {
+public class Repositorie extends RealmObject {
 
-    private final long id;
-    private final String name;
-    private final String description;
-    private final Owner owner;
-    @SerializedName("stargazers_count")
-    private final long stars;
-    @SerializedName("forks_count")
-    private final long forks;
+    private long id;
+    private String name;
+    private String description;
+    private Owner owner;
 
-    public Repositorie(long id, String name, String description, Owner owner, long stars, long forks) {
+    public Repositorie(){}
+
+    public Repositorie(long id, String name, String description, Owner owner) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.owner = owner;
-        this.stars = stars;
-        this.forks = forks;
     }
 
     public long getId() {
@@ -38,11 +34,4 @@ public class Repositorie {
         return owner;
     }
 
-    public long getStars() {
-        return stars;
-    }
-
-    public long getForks() {
-        return forks;
-    }
 }
