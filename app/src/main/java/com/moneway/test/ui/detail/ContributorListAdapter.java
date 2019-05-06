@@ -2,6 +2,7 @@ package com.moneway.test.ui.detail;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +27,10 @@ public class ContributorListAdapter extends RecyclerView.Adapter<ContributorList
     private static Context mContext;
 
     /**
-     *
-     * @param viewModel
-     * @param lifecycleOwner
-     * @param context
+     * custom adapter for contributor recycler view
+     * @param viewModel detailViewModel
+     * @param lifecycleOwner current lifecycle owner
+     * @param context base context
      */
     ContributorListAdapter(DetailsViewModel viewModel, LifecycleOwner lifecycleOwner, Context context) {
         mContext = context;
@@ -87,7 +88,9 @@ public class ContributorListAdapter extends RecyclerView.Adapter<ContributorList
          */
         void bindRepositorie(Contributor contributor) {
             Glide.with(mContext).load(contributor.getAvatarUrl()).apply(RequestOptions.circleCropTransform()).into(binding.imgContributor);
+            Log.d("tag ,", contributor.getAvatarUrl());
             binding.tvContributorName.setText(contributor.getLogin());
+            binding.executePendingBindings();
         }
     }
 }

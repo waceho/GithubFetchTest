@@ -15,11 +15,9 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", "\"http://api.github.com\"")
-            buildConfigField("String", "BASE_URL_TEST", "\"http://www.mocky.io\"")
         }
         release {
             buildConfigField("String", "BASE_URL", "\"http://api.github.com\"")
-            buildConfigField("String", "BASE_URL_TEST", "\"http://www.mocky.io\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
