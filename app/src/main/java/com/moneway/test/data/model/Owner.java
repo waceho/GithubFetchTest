@@ -2,7 +2,9 @@ package com.moneway.test.data.model;
 
 import io.realm.RealmObject;
 
-/** repos owner Object **/
+/**
+ * repos owner Object
+ **/
 public class Owner extends RealmObject {
 
     public String getLogin() {
@@ -12,8 +14,6 @@ public class Owner extends RealmObject {
     private String login;
 
     public Owner() {
-
     }
-
 
 }

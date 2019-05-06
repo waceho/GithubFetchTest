@@ -1,7 +1,7 @@
 package com.moneway.test.repository.home;
 
 import com.moneway.test.data.api.ApiService;
-import com.moneway.test.data.model.Repositorie;
+import com.moneway.test.data.model.Repo;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class HomeRepositoryImpl implements HomeRepository {
     }
 
     @Override
-    public Single<List<Repositorie>> getRepositories() {
+    public Single<List<Repo>> getRepositories() {
         return apiService.getRepositories();
     }
 }
