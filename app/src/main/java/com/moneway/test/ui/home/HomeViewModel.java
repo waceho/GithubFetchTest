@@ -1,6 +1,6 @@
 package com.moneway.test.ui.home;
 
-import com.moneway.test.data.model.Repositorie;
+import com.moneway.test.data.model.Repo;
 import com.moneway.test.repository.home.HomeRepository;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class HomeViewModel extends ViewModel {
 
     private final HomeRepository repoRepository;
-    private final MutableLiveData<List<Repositorie>> repositories = new MutableLiveData<>();
+    private final MutableLiveData<List<Repo>> repositories = new MutableLiveData<>();
     private final MutableLiveData<Boolean> repoLoadError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private CompositeDisposable disposable;
@@ -30,7 +30,7 @@ public class HomeViewModel extends ViewModel {
         fetchRepos();
     }
 
-    LiveData<List<Repositorie>> getRepos() {
+    LiveData<List<Repo>> getRepos() {
         return repositories;
     }
 
@@ -52,9 +52,9 @@ public class HomeViewModel extends ViewModel {
                         .getRepositories()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableSingleObserver<List<Repositorie>>() {
+                        .subscribeWith(new DisposableSingleObserver<List<Repo>>() {
                             @Override
-                            public void onSuccess(List<Repositorie> value) {
+                            public void onSuccess(List<Repo> value) {
                                 repoLoadError.setValue(false);
                                 repositories.setValue(value);
                                 loading.setValue(false);

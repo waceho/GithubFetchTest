@@ -1,12 +1,7 @@
 package com.moneway.test.data.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Contributor {
 
-    @SerializedName("login")
-    @Expose
     private String login;
 
     public String getLogin() {
@@ -25,8 +20,6 @@ public class Contributor {
         this.avatarUrl = avatarUrl;
     }
 
-    @SerializedName("avatar_url")
-    @Expose
     private String avatarUrl;
 
     public Contributor(String login, String avatarUrl) {

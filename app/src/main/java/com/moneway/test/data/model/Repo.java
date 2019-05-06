@@ -2,16 +2,17 @@ package com.moneway.test.data.model;
 
 import io.realm.RealmObject;
 
-public class Repositorie extends RealmObject {
+public class Repo extends RealmObject {
 
     private long id;
     private String name;
     private String description;
     private Owner owner;
 
-    public Repositorie(){}
+    public Repo() {
+    }
 
-    public Repositorie(long id, String name, String description, Owner owner) {
+    public Repo(long id, String name, String description, Owner owner) {
         this.id = id;
         this.name = name;
         this.description = description;

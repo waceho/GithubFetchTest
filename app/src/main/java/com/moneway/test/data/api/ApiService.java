@@ -2,7 +2,7 @@ package com.moneway.test.data.api;
 
 import com.moneway.test.data.model.Branche;
 import com.moneway.test.data.model.Contributor;
-import com.moneway.test.data.model.Repositorie;
+import com.moneway.test.data.model.Repo;
 
 import java.util.List;
 
@@ -13,19 +13,19 @@ import retrofit2.http.Path;
 public interface ApiService {
 
     @GET("/repositories")
-    Single<List<Repositorie>> getRepositories();
+    Single<List<Repo>> getRepositories();
 
     /*
     @GET("v2/5ccf1204300000ce1652c472")
-    Single<List<Repositorie>> getRepositories();
+    Single<List<Repo>> getRepositories();
     */
 
     @GET("repos/{owner}/{name}")
-    Single<Repositorie> getRepositorie(@Path("owner") String owner, @Path("name") String name);
+    Single<Repo> getRepositorie(@Path("owner") String owner, @Path("name") String name);
 
     /*
     @GET("v2/5ccf1163300000141652c470")
-    Single<Repositorie> getRepositorie();
+    Single<Repo> getRepositorie();
     */
 
     @GET("repos/{owner}/{name}/branches")
