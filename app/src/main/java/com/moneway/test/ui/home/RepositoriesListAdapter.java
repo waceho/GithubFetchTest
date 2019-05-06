@@ -1,7 +1,6 @@
 package com.moneway.test.ui.home;
 
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieListAdapter.RepoViewHolder> implements Filterable {
+public class RepositoriesListAdapter extends RecyclerView.Adapter<RepositoriesListAdapter.RepoViewHolder> implements Filterable {
 
     private final List<Repositorie> data = new ArrayList<>();
     private RepositorieSelectListener repositorieSelectListener;
-    private List<Repositorie> repositorieList;
-    private List<Repositorie> repositorieFiltered;
+    private List<Repositorie> repositoriesList;
+    private List<Repositorie> repositoriesFiltered;
 
-    RepositorieListAdapter(HomeViewModel viewModel, LifecycleOwner lifecycleOwner, RepositorieSelectListener repositorieSelectListener) {
+    RepositoriesListAdapter(HomeViewModel viewModel, LifecycleOwner lifecycleOwner, RepositorieSelectListener repositorieSelectListener) {
         this.repositorieSelectListener = repositorieSelectListener;
 
         viewModel.getRepos().observe(lifecycleOwner, repos -> {
@@ -34,8 +33,8 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
             if (repos != null) {
                 data.addAll(repos);
                 notifyDataSetChanged();
-                this.repositorieList = viewModel.getRepos().getValue();
-                this.repositorieFiltered = viewModel.getRepos().getValue();
+                this.repositoriesList = viewModel.getRepos().getValue();
+                this.repositoriesFiltered = viewModel.getRepos().getValue();
             }
         });
         setHasStableIds(true);
@@ -50,7 +49,7 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
 
     @Override
     public void onBindViewHolder(@NonNull RepoViewHolder holder, int position) {
-        holder.bindRepositorie(data.get(position));
+        holder.bindRepo(data.get(position));
     }
 
     @Override
@@ -70,36 +69,46 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
                 if (charString.isEmpty()) {
-                    repositorieFiltered = repositorieList;
+                    repositoriesFiltered = repositoriesList;
                 } else {
                     List<Repositorie> filteredList = new ArrayList<>();
-                    for (Repositorie row : repositorieList) {
-                        Log.d("Repo", row.getName());
+                    for (Repositorie row : repositoriesList) {
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
                         if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().contains(charSequence)) {
                             filteredList.add(row);
-                            Log.d("Repo filtered", charString);
                         }
                     }
-
-                    repositorieFiltered = filteredList;
+                    // set filtered list
+                    repositoriesFiltered = filteredList;
                 }
 
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = repositorieFiltered;
+                filterResults.values = repositoriesFiltered;
 
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                repositorieFiltered = (ArrayList<Repositorie>) filterResults.values;
-                data.clear();
-                data.addAll(repositorieFiltered);
-                notifyDataSetChanged();
+                repositoriesFiltered = (ArrayList<Repositorie>) filterResults.values;
+                // publish filtered list
+                publishFilteredList(repositoriesFiltered);
             }
         };
+    }
+
+    /**
+     * clear data list and publish filtered list
+     *
+     * @param repositorieFiltered the filtered repositorie list
+     */
+    private void publishFilteredList(List<Repositorie> repositorieFiltered) {
+        if (null != repositorieFiltered) {
+            data.clear();
+            data.addAll(repositorieFiltered);
+        }
+        notifyDataSetChanged();
     }
 
     static final class RepoViewHolder extends RecyclerView.ViewHolder {
@@ -134,10 +143,10 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
         /**
          * bind {repositorie} and set value
          *
-         * @param repositorie
+         * @param repo
          */
-        void bindRepositorie(Repositorie repositorie) {
-            this.repositorie = repositorie;
+        void bindRepo(Repositorie repo) {
+            this.repositorie = repo;
             binding.tvRepoName.setText(repositorie.getName());
             binding.tvRepoDescription.setText(repositorie.getDescription());
         }

@@ -29,7 +29,7 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
 
     private HomeViewModel viewModel;
     private FragmentHomeListBinding binding;
-    private RepositorieListAdapter adapter;
+    private RepositoriesListAdapter adapter;
 
     @Override
     protected int layoutRes() {
@@ -63,7 +63,7 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
      */
     private void configRecyclerView() {
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getBaseActivity(), DividerItemDecoration.VERTICAL));
-        adapter = new RepositorieListAdapter(viewModel, this, this);
+        adapter = new RepositoriesListAdapter(viewModel, this, this);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // init filter
@@ -138,7 +138,7 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
         });
     }
 
-    private void initFilter(RepositorieListAdapter repositorieListAdapter){
+    private void initFilter(RepositoriesListAdapter repositorieListAdapter){
         // listening to search query text change
         binding.editQuery.addTextChangedListener(new TextWatcher() {
             @Override
