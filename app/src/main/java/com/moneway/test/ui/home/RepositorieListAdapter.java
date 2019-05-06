@@ -1,9 +1,12 @@
 package com.moneway.test.ui.home;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.moneway.test.R;
 import com.moneway.test.data.model.Repositorie;
@@ -16,18 +19,23 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieListAdapter.RepoViewHolder> {
+public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieListAdapter.RepoViewHolder> implements Filterable {
 
     private final List<Repositorie> data = new ArrayList<>();
     private RepositorieSelectListener repositorieSelectListener;
+    private List<Repositorie> repositorieList;
+    private List<Repositorie> repositorieFiltered;
 
     RepositorieListAdapter(HomeViewModel viewModel, LifecycleOwner lifecycleOwner, RepositorieSelectListener repositorieSelectListener) {
         this.repositorieSelectListener = repositorieSelectListener;
+
         viewModel.getRepos().observe(lifecycleOwner, repos -> {
             data.clear();
             if (repos != null) {
                 data.addAll(repos);
                 notifyDataSetChanged();
+                this.repositorieList = viewModel.getRepos().getValue();
+                this.repositorieFiltered = viewModel.getRepos().getValue();
             }
         });
         setHasStableIds(true);
@@ -53,6 +61,45 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
     @Override
     public long getItemId(int position) {
         return data.get(position).getId();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    repositorieFiltered = repositorieList;
+                } else {
+                    List<Repositorie> filteredList = new ArrayList<>();
+                    for (Repositorie row : repositorieList) {
+                        Log.d("Repo", row.getName());
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().contains(charSequence)) {
+                            filteredList.add(row);
+                            Log.d("Repo filtered", charString);
+                        }
+                    }
+
+                    repositorieFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = repositorieFiltered;
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                repositorieFiltered = (ArrayList<Repositorie>) filterResults.values;
+                data.clear();
+                data.addAll(repositorieFiltered);
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static final class RepoViewHolder extends RecyclerView.ViewHolder {

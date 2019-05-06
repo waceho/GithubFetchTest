@@ -1,6 +1,8 @@
 package com.moneway.test.ui.home;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.moneway.test.R;
@@ -27,6 +29,7 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
 
     private HomeViewModel viewModel;
     private FragmentHomeListBinding binding;
+    private RepositorieListAdapter adapter;
 
     @Override
     protected int layoutRes() {
@@ -43,7 +46,12 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
         configRecyclerView();
         // set observer
         observableViewModel();
+        // init home as up
+        initHomeAsUp();
+    }
 
+    /** init up for back on details fragment **/
+    private void initHomeAsUp() {
         MainActivity activity = (MainActivity)getActivity();
         if (activity != null) {
             activity.canDisplayHomeUp();
@@ -55,8 +63,11 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
      */
     private void configRecyclerView() {
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getBaseActivity(), DividerItemDecoration.VERTICAL));
-        binding.recyclerView.setAdapter(new RepositorieListAdapter(viewModel, this, this));
+        adapter = new RepositorieListAdapter(viewModel, this, this);
+        binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // init filter
+        initFilter(adapter);
     }
 
     /**
@@ -107,7 +118,7 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
                 if (isError) {
                     binding.tvError.setVisibility(View.VISIBLE);
                     binding.recyclerView.setVisibility(View.GONE);
-                    binding.tvError.setText("An Error Occurred While Loading Data!");
+                    binding.tvError.setText(getString(R.string.loading_error));
                 } else {
                     binding.tvError.setVisibility(View.GONE);
                     binding.tvError.setText(null);
@@ -123,6 +134,26 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
                     binding.tvError.setVisibility(View.GONE);
                     binding.recyclerView.setVisibility(View.GONE);
                 }
+            }
+        });
+    }
+
+    private void initFilter(RepositorieListAdapter repositorieListAdapter){
+        // listening to search query text change
+        binding.editQuery.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                repositorieListAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MonewayTest</string>
+    <string name="loading_error">Erreur lors du chargement</string>
 </resources>

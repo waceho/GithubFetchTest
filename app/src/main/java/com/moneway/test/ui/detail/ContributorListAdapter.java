@@ -33,9 +33,10 @@ public class ContributorListAdapter extends RecyclerView.Adapter<ContributorList
      */
     ContributorListAdapter(DetailsViewModel viewModel, LifecycleOwner lifecycleOwner, Context context) {
         mContext = context;
-        data.clear();
+
         viewModel.getContributors().observe(lifecycleOwner, contributors -> {
             if (contributors != null) {
+                data.clear();
                 data.addAll(contributors);
                 notifyDataSetChanged();
             }
