@@ -6,8 +6,9 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.moneway.test.BR;
 import com.moneway.test.R;
-import com.moneway.test.data.model.Repositorie;
+import com.moneway.test.data.model.Repo;
 import com.moneway.test.databinding.RepositorieItemBinding;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieListAdapter.RepoViewHolder> implements Filterable {
 
-    private final List<Repositorie> data = new ArrayList<>();
+    private final List<Repo> data = new ArrayList<>();
     private RepositorieSelectListener repositorieSelectListener;
-    private List<Repositorie> repositorieList;
-    private List<Repositorie> repositorieFiltered;
+    private List<Repo> repositorieList;
+    private List<Repo> repositorieFiltered;
 
     RepositorieListAdapter(HomeViewModel viewModel, LifecycleOwner lifecycleOwner, RepositorieSelectListener repositorieSelectListener) {
         this.repositorieSelectListener = repositorieSelectListener;
@@ -73,8 +74,8 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
                 if (charString.isEmpty()) {
                     repositorieFiltered = repositorieList;
                 } else {
-                    List<Repositorie> filteredList = new ArrayList<>();
-                    for (Repositorie row : repositorieList) {
+                    List<Repo> filteredList = new ArrayList<>();
+                    for (Repo row : repositorieList) {
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
                         if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().contains(charSequence)) {
@@ -93,7 +94,7 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                repositorieFiltered = (ArrayList<Repositorie>) filterResults.values;
+                repositorieFiltered = (ArrayList<Repo>) filterResults.values;
                 if (null != repositorieFiltered)
                     publishFilteredList();
             }
@@ -114,11 +115,10 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
         // bind view
         private RepositorieItemBinding binding;
 
-        private Repositorie repositorie;
+        private Repo repositorie;
 
         RepoViewHolder(View itemView, RepositorieSelectListener repositorieSelectListener) {
             super(itemView);
-
             binding = bind(itemView);
 
             itemView.setOnClickListener(v -> {
@@ -132,7 +132,7 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
          * bind repositorie view item
          *
          * @param view itemview
-         * @return RepositorieItemBinding
+         * @return Repo Item Binding
          */
         private RepositorieItemBinding bind(View view) {
             return RepositorieItemBinding.bind(view);
@@ -141,12 +141,12 @@ public class RepositorieListAdapter extends RecyclerView.Adapter<RepositorieList
         /**
          * bind {repositorie} and set value
          *
-         * @param repositorie
+         * @param repo item repos
          */
-        void bindRepositorie(Repositorie repositorie) {
-            this.repositorie = repositorie;
-            binding.tvRepoName.setText(repositorie.getName());
-            binding.tvRepoDescription.setText(repositorie.getDescription());
+        void bindRepositorie(Repo repo) {
+            this.repositorie = repo;
+            binding.setVariable(BR.repoModel, repositorie);
+            binding.executePendingBindings();
         }
     }
 }

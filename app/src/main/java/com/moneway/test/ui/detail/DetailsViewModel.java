@@ -1,11 +1,10 @@
 package com.moneway.test.ui.detail;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.moneway.test.data.model.Branche;
 import com.moneway.test.data.model.Contributor;
-import com.moneway.test.data.model.Repositorie;
+import com.moneway.test.data.model.Repo;
 import com.moneway.test.repository.details.DetailsRepository;
 
 import java.util.List;
@@ -26,19 +25,19 @@ public class DetailsViewModel extends ViewModel {
     private final DetailsRepository detailsRepository;
     private CompositeDisposable disposable;
 
-    private final MutableLiveData<Repositorie> repositorie = new MutableLiveData<>();
+    private final MutableLiveData<Repo> repositorie = new MutableLiveData<>();
     private final MutableLiveData<List<Branche>> branches = new MutableLiveData<>();
     private final MutableLiveData<List<Contributor>> contributors = new MutableLiveData<>();
     private final MutableLiveData<String> repoName = new MutableLiveData<>();
     private final MutableLiveData<String> repoDescription = new MutableLiveData<>();
 
     // setter
-    public void setRepositorie(Repositorie repositorie) {
+    public void setRepositorie(Repo repositorie) {
         this.repositorie.setValue(repositorie);
     }
 
     // getter
-    public LiveData<Repositorie> getRepositorie() {
+    public LiveData<Repo> getRepositorie() {
         return repositorie;
     }
 

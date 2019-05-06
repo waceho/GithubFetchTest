@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.moneway.test.R;
 import com.moneway.test.base.BaseFragment;
-import com.moneway.test.data.model.Repositorie;
+import com.moneway.test.data.model.Repo;
 import com.moneway.test.databinding.FragmentHomeListBinding;
 import com.moneway.test.ui.detail.DetailsFragment;
 import com.moneway.test.ui.detail.DetailsViewModel;
@@ -50,9 +50,11 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
         initHomeAsUp();
     }
 
-    /** init up for back on details fragment **/
+    /**
+     * init up for back on details fragment
+     **/
     private void initHomeAsUp() {
-        MainActivity activity = (MainActivity)getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         if (activity != null) {
             activity.canDisplayHomeUp();
         }
@@ -71,7 +73,6 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
     }
 
     /**
-     *
      * @param view this fragment view
      * @return FragmentHomeList Binding
      */
@@ -80,14 +81,14 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
     }
 
     @Override
-    public void onRepoSelected(Repositorie repositorie) {
+    public void onRepoSelected(Repo repositorie) {
         showDetails(repositorie);
     }
 
     /**
      * show selected repositorie details
      **/
-    private void showDetails(Repositorie repositorie) {
+    private void showDetails(Repo repositorie) {
         DetailsViewModel detailsViewModel = ViewModelProviders.of(getBaseActivity(), factoryViewModel).get(DetailsViewModel.class);
         detailsViewModel.setRepositorie(repositorie);
         getBaseActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainScreenContainer, new DetailsFragment())
@@ -138,7 +139,7 @@ public class HomeFragment extends BaseFragment implements RepositorieSelectListe
         });
     }
 
-    private void initFilter(RepositorieListAdapter repositorieListAdapter){
+    private void initFilter(RepositorieListAdapter repositorieListAdapter) {
         // listening to search query text change
         binding.editQuery.addTextChangedListener(new TextWatcher() {
             @Override
