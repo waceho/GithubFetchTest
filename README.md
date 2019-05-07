@@ -18,4 +18,8 @@ this app showcases the following Architecture Components :
  
  // TODO : realm and data binding implementation is not completed
  
- https://user-images.githubusercontent.com/16366481/57240058-eb98a700-702d-11e9-863d-56b45402667a.png
+ * repos list
+ ![alt text](https://user-images.githubusercontent.com/16366481/57240008-cc017e80-702d-11e9-8782-4a002a53ea64.png)
+ 
+ * repo details
+ ![alt text](https://user-images.githubusercontent.com/16366481/57240058-eb98a700-702d-11e9-863d-56b45402667a.png)
