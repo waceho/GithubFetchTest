@@ -13,6 +13,8 @@ import com.moneway.test.repository.home.HomeRepository;
 import com.moneway.test.repository.home.HomeRepositoryImpl;
 
 import javax.inject.Singleton;
+
+import androidx.databinding.library.baseAdapters.BuildConfig;
 import dagger.Module;
 import dagger.Provides;
 import io.realm.Realm;
@@ -47,13 +49,15 @@ public class AppModule {
 
     @Provides
     static Retrofit provideRetrofit() {
-
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        // set log if debug config
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            // set your desired log level
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        httpClient.addInterceptor(logging);
+            httpClient.addInterceptor(logging);
+        }
 
         return new Retrofit.Builder().baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
